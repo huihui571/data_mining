@@ -4,8 +4,8 @@
 
 数据先进行标准化，然后应用各种评价指标进行比较。如下表，从上到下依次是按照Kmeans++方法初始化、randoma初始化以及PCA降维后的运行结果。可以看出，经过PCA降维操作，选取数据特征空间10个主成分轴作为初始聚类中心，可以大大减少算法运行时间，并在一致性等指标上也有显著提升。
 
-![metrices](https://github.com/huihui571/data_mining/blob/master/hw1/assets/KMeans-metrics.PNG)
-![PCA-KMeans](https://github.com/huihui571/data_mining/blob/master/hw1/assets/K-means.png)
+![KMeans-metrics.PNG](https://i.loli.net/2019/10/09/h2CV5K31r4oOR6F.png)  
+![K-means.png](https://i.loli.net/2019/10/09/yMuDvOBoIFZafUE.png)   
 
 ## Affinity propagation
 AP聚类和谱聚类都是基于图的聚类。  
@@ -13,6 +13,16 @@ AP聚类和谱聚类都是基于图的聚类。
 适合：高维、多类别数据的快速聚类。  
 由于AP算法并没有指定聚类中心k的值，所以每次聚类得到的中心个数是不确定的，与preference参数的取值有关。preference参数表示每个点被选举为中心的概率，如果设一个值，则表示所有点被选举为中心的概率相同。该参数恒为负，且值越小生成的聚类中心个数越少。
 
-![AP](https://github.com/huihui571/data_mining/blob/master/hw1/assets/AP_mnist-2.png)
+![AP_mnist-2.png](https://i.loli.net/2019/10/09/MDIqNPHsrSbTYid.png)   
+```
+Run time: 3.35
+Estimated number of clusters: 130
+Homogeneity: 0.935
+Completeness: 0.462
+V-measure: 0.618
+Adjusted Rand Index: 0.155
+Adjusted Mutual Information: 0.576
+Silhouette Coefficient: 0.176
+```
 
 ## Mean Shift
