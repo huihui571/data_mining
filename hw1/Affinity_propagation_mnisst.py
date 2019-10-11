@@ -35,18 +35,17 @@ print("Homogeneity: %0.3f" % metrics.homogeneity_score(labels_true, labels))
 # 完整性
 print("Completeness: %0.3f" % metrics.completeness_score(labels_true, labels))
 # 上两者的调和平均
-print("V-measure: %0.3f" % metrics.v_measure_score(labels_true, labels))
+#print("V-measure: %0.3f" % metrics.v_measure_score(labels_true, labels))
 # 调整兰德指数取值范围[-1.1],值越大意味聚类结果与真实情况越吻合
-print("Adjusted Rand Index: %0.3f"
-      % metrics.adjusted_rand_score(labels_true, labels))
-# 调整互信息，[-1,1],值越大意味聚类结果与真实情况越吻合
-print("Adjusted Mutual Information: %0.3f"
-      % metrics.adjusted_mutual_info_score(labels_true, labels,
+#print("Adjusted Rand Index: %0.3f"
+#      % metrics.adjusted_rand_score(labels_true, labels))
+# 标准化互信息，[0,1],值越大意味聚类结果与真实情况越吻合
+print("Normal Mutual Information: %0.3f"
+      % metrics.normalized_mutual_info_score(labels_true, labels,
                                            average_method='arithmetic'))
 # 轮廓系数，综合了聚集度和分离度，取值为[-1, 1]，其值越大越好，且当值为负时，表明 ai<bi，样本被分配到错误的簇中，聚类结果不可接受。对于接近0的结果，则表明聚类结果有重叠的情况。
-print("Silhouette Coefficient: %0.3f"
-      % metrics.silhouette_score(X, labels, metric='sqeuclidean'))
-
+#print("Silhouette Coefficient: %0.3f"
+#      % metrics.silhouette_score(X, labels, metric='sqeuclidean'))
 # #############################################################################
 # Plot result
 import matplotlib.pyplot as plt
