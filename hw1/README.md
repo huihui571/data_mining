@@ -1,5 +1,12 @@
 # homework1
 首先在mnist数据集上分别运行以下几种聚类算法，得到运行结果和评价。
+## 评价指标
+### Homogeneity
+sklearn.metrics.homogeneity_score: 每一个聚出的类仅包含一个类别的程度度量。
+### Completeness  
+sklearn.metrics.completeness: 每一个类别被指向相同聚出的类的程度度量。
+### Normal Mutual Information
+sklearn.metrics.normalized_mutual_info_score标准化互信息，[0,1],值越大意味聚类结果与真实情况越吻合。
 ## Kmeans
 
 数据先进行标准化，然后应用各种评价指标进行比较。如下表，从上到下依次是按照Kmeans++方法初始化、randoma初始化以及PCA降维后的运行结果。可以看出，经过PCA降维操作，选取数据特征空间10个主成分轴作为初始聚类中心，可以大大减少算法运行时间，并在一致性等指标上也有显著提升。
@@ -19,6 +26,7 @@ Run time: 4.32
 Estimated number of clusters: 10
 Homogeneity: 0.590
 Completeness: 0.623
+Normal Mutual Information: 0.571
 ```
 ![AP_mnist-1.png](https://i.loli.net/2019/10/10/BFhPLd1Da2uTeYx.png)   
 
@@ -33,8 +41,9 @@ MeanShift算法的关键操作是通过感兴趣区域内的数据密度变化�
 ```
 Run time: 3.33
 number of estimated clusters : 10
-Homogeneity: 0.844
-Completeness: 0.851 
+Homogeneity: 0.826
+Completeness: 0.839
+Normal Mutual Information: 0.833
 ```
 ![MeanShift_mnist.png](https://i.loli.net/2019/10/10/K372mJsFzurLlbo.png)  
 PS:该算法在PCA降维后聚类效果很差，换用另一种降维方法t-SNE后效果明显变好。
@@ -116,6 +125,37 @@ Normal Mutual Information: 0.559
 ```
 ![GMM_mnist.png](https://i.loli.net/2019/10/11/AZ1csgMXlKtVxTW.png)   
 
+### 所有算法运行结果对比如下表：
+
+| 算法 | Homogeneity | Completeness | NMI |
+|:- |:-: |:-: | :-: |
+|K-means|0.667|0.695|0.680|
+|Affinity propagation|0.590|0.632|0.571|
+|Mean Shift|0.826|0.839|0.833|
+|Spectral Clustering|0.628|0.633|0.645|
+|Agg-wrad|0.511|0.531|0.521|
+|Agg-single|0.502|0.511|0.525|
+|Agg-complete|0.477|0.533|0.503|
+|Agg-average|0.121|0.845|0.212|
+|DBSCAN|0.051|0.232|0.083|
+|GMM-spherical|0.525|0.542|0.535|
+|GMM-diag|0.542|0.553|0.548|
+|GMM-tied|0.559|0.573|0.566|
+|GMM-full|0.556|0.562|0.559|
+
 
 ## 20newsGroup数据集
+对于该数据集，我们不再进行聚类结果可视化，直接输出运行结果评价。
+
+|算法|time|Homogeneity|Completeness|NMI|
+|:- |:-: |:-: | :-: | :-: |
+|kMeans         |0.05s  |0.477  |0.597  |0.530|
+|AffinityPropagation    |3.81s  |0.769  |0.215  |0.336|
+|MeanShift      |5.56s  |0.480  |0.600  |0.533|
+|SpectralClustering     |0.46s  |0.438  |0.591  |0.503|
+|Agg-ward       |0.17s  |0.428  |0.583  |0.494|
+|Agg-average    |0.12s  |0.482  |0.602  |0.535|
+|Agg-complete   |0.13s  |0.356  |0.464  |0.403|
+|Agg-single     |0.06s  |0.001  |0.163  |0.003|
+|DBSCAN         |0.02s  |0.472  |0.358  |0.407|
 
