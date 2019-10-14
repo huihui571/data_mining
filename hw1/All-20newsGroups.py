@@ -48,22 +48,34 @@ def run_clusters(estimator, name, data):
              metrics.normalized_mutual_info_score(labels,  estimator.labels_,
                                                 average_method='arithmetic')))
 
-run_clusters(KMeans(init='k-means++', n_clusters=4, n_init=10),
-				name="kMeans", data=X)
-run_clusters(AffinityPropagation(preference=-0.04),
-				name="AffinityPropagation", data=X)
-bandwidth = estimate_bandwidth(X, quantile=0.3, n_samples=500)
-run_clusters(MeanShift(bandwidth=bandwidth, bin_seeding=False),
-				name="MeanShift", data=X)
-run_clusters(SpectralClustering(n_clusters=4, eigen_solver='arpack'),
-				name="SpectralClustering", data=X)
-run_clusters(AgglomerativeClustering(linkage='ward', n_clusters=4),
-				name="Agg-ward", data=X)
-run_clusters(AgglomerativeClustering(linkage='average', n_clusters=4),
-				name="Agg-average", data=X)
-run_clusters(AgglomerativeClustering(linkage='complete', n_clusters=4),
-				name="Agg-complete", data=X)
-run_clusters(AgglomerativeClustering(linkage='single', n_clusters=4),
-				name="Agg-single", data=X)
-run_clusters(DBSCAN(eps=0.05, min_samples=4),
- 				name="DBSCAN", data=X)
+# run_clusters(KMeans(init='k-means++', n_clusters=4, n_init=10),
+# 				name="kMeans", data=X)
+# run_clusters(AffinityPropagation(preference=-0.04),
+# 				name="AffinityPropagation", data=X)
+# bandwidth = estimate_bandwidth(X, quantile=0.3, n_samples=500)
+# run_clusters(MeanShift(bandwidth=bandwidth, bin_seeding=False),
+# 				name="MeanShift", data=X)
+# run_clusters(SpectralClustering(n_clusters=4, eigen_solver='arpack'),
+# 				name="SpectralClustering", data=X)
+# run_clusters(AgglomerativeClustering(linkage='ward', n_clusters=4),
+# 				name="Agg-ward", data=X)
+# run_clusters(AgglomerativeClustering(linkage='average', n_clusters=4),
+# 				name="Agg-average", data=X)
+# run_clusters(AgglomerativeClustering(linkage='complete', n_clusters=4),
+# 				name="Agg-complete", data=X)
+# run_clusters(AgglomerativeClustering(linkage='single', n_clusters=4),
+# 				name="Agg-single", data=X)
+# run_clusters(DBSCAN(eps=0.05, min_samples=4),
+#  				name="DBSCAN", data=X)
+estimators = {cov_type: GaussianMixture(n_components=4,
+              covariance_type=cov_type, max_iter=20, random_state=0)
+              for cov_type in ['spherical', 'diag', 'tied', 'full']}
+for name, estimator in estimators.items():
+    t0 = time()
+    estimator.fit(X)
+    print('|%-9s\t|%.2fs\t|%.3f\t|%.3f\t|%.3f|'
+            % ('GMM-'+name, (time() - t0),
+            metrics.homogeneity_score(labels, estimator.predict(X)),
+            metrics.completeness_score(labels, estimator.predict(X)),
+            metrics.normalized_mutual_info_score(labels,  estimator.predict(X),
+                                                    average_method='arithmetic')))

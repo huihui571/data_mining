@@ -17,7 +17,7 @@ data = scale(digits.data)     # 标准化，使每一维数据变成均值0，�
 #data = digits.data
 X, labels_true = data, digits.target
 
-reducde_data = PCA(n_components=2).fit_transform(data)
+reducde_data = PCA(n_components=10).fit_transform(data)
 X = reducde_data
 # #############################################################################
 # Compute Affinity Propagation

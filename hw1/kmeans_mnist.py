@@ -19,7 +19,6 @@ labels = digits.target                    # 标签0~9
 #print(labels)
 
 sample_size = 300
-
 print("n_digits: %d, \t n_samples %d, \t n_features %d"
       % (n_digits, n_samples, n_features))
 
